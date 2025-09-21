@@ -1,3 +1,4 @@
+# Project Management
 venv:
     uv venv .venv
 
@@ -12,3 +13,8 @@ update:
     uv pip freeze > requirements.txt
 
 alias upgrade := update
+
+
+# Development
+serve:
+    .venv/bin/marimo edit
