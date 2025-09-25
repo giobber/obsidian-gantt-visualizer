@@ -16,5 +16,6 @@ alias upgrade := update
 
 
 # Development
+alias run := serve
 serve:
     .venv/bin/marimo edit
