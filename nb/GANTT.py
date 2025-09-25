@@ -13,9 +13,9 @@ with app.setup:
 
 @app.cell
 def _():
-    data = pl.read_csv(".data/Work Packages.csv", try_parse_dates=True)
+    data = pl.read_csv(".data/table.csv", try_parse_dates=True)
     data = data.with_columns(
-        (pl.col("due") + dt.timedelta(days=1)).alias("due"),
+        (pl.col("end") + dt.timedelta(days=1)).alias("end"),
         (pl.col("project").str.strip_chars("[]").alias("project")),
     )
     data
@@ -24,7 +24,12 @@ def _():
 
 @app.cell
 def _(data):
-    altair.Chart(data).mark_bar().encode(x="start", x2="due", y="name", color="project")
+    altair.Chart(data).mark_bar().encode(
+        altair.X("start"),
+        altair.X2("end"),
+        altair.Y("name", sort="id"),
+        altair.Color("package", sort="descending"),
+    )
     return
 
 
